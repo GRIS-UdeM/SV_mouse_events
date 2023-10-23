@@ -2,6 +2,7 @@ import macmouse
 import time
 import socket
 import subprocess
+import sys
 
 VERSION = "0.0.1"
 
@@ -9,6 +10,11 @@ UDP_IP = "127.0.0.1"
 UDP_PORT = 18021
 
 def main():
+
+    for i, arg in enumerate(sys.argv):
+        if arg == "-v":
+            print(f"{VERSION}")
+            sys.exit()
 
     print("SV_mouse_events version:", VERSION)
     print("UDP target IP:", UDP_IP)
@@ -19,7 +25,7 @@ def main():
     pid, err = process.communicate()
 
     if pid != "":
-        quit()
+        sys.exit()
     
     while True:
         msg = "1" if macmouse.is_pressed(macmouse.LEFT) else "0"
